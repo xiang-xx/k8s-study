@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-content-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx-with-content
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-with-content
+    spec:
+      initContainers:
+      - name: alpine
+        image: alpine
+        volumeMounts:
+        - name: share-data
+          mountPath: "/pod-data"
+        command: ["/bin/sh"]
+        args: ["-c", "echo Hello from alpine container > /pod-data/index.html"]
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: share-data
+      volumes:
+      - name: share-data
+        hostPath:
+          path: /data
+        
