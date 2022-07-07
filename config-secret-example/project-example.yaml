@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: project-example
+spec:
+  containers:
+  - name: project-example
+    image: alpine
+    args:
+    - sleep
+    - "86400"
+    volumeMounts:
+    - name: mysql-cred
+      mountPath: "/projected-volume"
+      readOnly: true
+    - name: config-file
+      mountPath: "/projected-config"
+  volumes:
+  - name: mysql-cred
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+  - name: config-file
+    configMap:
+      name: test-config
+      defaultMode: 420
+

@@ -1,5 +1,5 @@
 # 在集群中安装 Dashboard
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
 # 获取 dashboard 的资源对象
 kubectl get all -n kubernetes-dashboard
 

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo Hello from postStart > /usr/share/nginx/html/index.html"]
+    
